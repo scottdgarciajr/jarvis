@@ -1,0 +1,4 @@
+#mode-toggle{position:absolute;top:22px;right:24px;z-index:4;width:38px;height:38px;border:1px solid rgba(170,220,255,.32);border-radius:50%;background:rgba(3,16,30,.5);color:#b9e5ff;font-size:17px;opacity:.55}
+#shell[data-mode="black"]{background:#000}#shell[data-mode="black"] #ambient{opacity:0}#shell[data-mode="black"] #face{background:#000;box-shadow:none}
+#shell[data-mode="hidden"]{background:#000}#shell[data-mode="hidden"] #ambient,#shell[data-mode="hidden"] #face,#shell[data-mode="hidden"] #card,#shell[data-mode="hidden"] #fallback{display:none}#shell[data-mode="hidden"] #mode-toggle{color:#222;border-color:#222;background:#000;opacity:.25}
+#shell[data-mode="blackout"]{background:#000!important}#shell[data-mode="blackout"] *{visibility:hidden!important}#shell[data-mode="blackout"] #mode-toggle{visibility:visible!important;opacity:0!important;pointer-events:auto}#shell[data-mode="blackout"] #ambient{display:none!important}

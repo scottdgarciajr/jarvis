@@ -1,0 +1,27 @@
+#sphere-interface{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;overflow:hidden;z-index:1}
+#jarvis-sphere{width:620px;height:620px;width:76vmin;height:76vmin;max-width:100%;display:block;cursor:pointer;touch-action:manipulation}
+@supports (width:min(1px,1px)){#jarvis-sphere{width:min(76vmin,620px);height:min(76vmin,620px)}}
+#sphere-hud{position:absolute;inset:7%;pointer-events:none;opacity:.58}
+#sphere-hud span{position:absolute;border:1px solid rgba(255,184,75,.36);box-shadow:0 0 22px rgba(255,169,55,.2)}
+#sphere-hud span:nth-child(1){left:4%;top:18%;width:26%;height:1px}
+#sphere-hud span:nth-child(2){right:8%;top:22%;width:1px;height:34%}
+#sphere-hud span:nth-child(3){left:12%;bottom:12%;width:40%;height:1px}
+#sphere-hud span:nth-child(4){right:4%;bottom:8%;width:16%;height:16%;border-radius:50%}
+#sphere-readout{position:absolute;left:0;right:0;bottom:22px;text-align:center;z-index:2;letter-spacing:.18em;text-transform:uppercase;pointer-events:none}
+#sphere-status{font-size:13px;font-weight:700;color:#ffe2a4;text-shadow:0 0 16px rgba(255,194,94,.55)}
+#sphere-message{max-width:520px;margin:9px auto 0;color:#d7b170;font-size:13px;letter-spacing:.05em;text-transform:none;line-height:1.35;text-shadow:0 0 12px rgba(255,148,38,.28)}
+#shell[data-interface="classic"] #sphere-interface{display:none}
+#shell[data-interface="sphere"] #face,#shell[data-interface="sphere"] #card{opacity:0;pointer-events:none}
+#shell[data-interface="sphere"]{background:radial-gradient(ellipse at 38% 43%,#1b1108,#020202 72%)}
+#shell[data-interface="sphere"] #ambient{background:#ffad32;opacity:.17}
+#shell[data-interface="sphere"].state-listening #ambient{background:#ffe8b8;opacity:.22}
+#shell[data-interface="sphere"].state-thinking #ambient{background:#ff9e2f;opacity:.25}
+#shell[data-interface="sphere"].state-speaking #ambient{background:#fff1ca;opacity:.2}
+#shell[data-interface="sphere"].state-error #ambient{background:#ff4d26;opacity:.18}
+@media(max-width:900px){#jarvis-sphere{width:430px;height:430px;width:86vmin;height:86vmin}#sphere-readout{bottom:10px}}
+@supports (width:min(1px,1px)){@media(max-width:900px){#jarvis-sphere{width:min(86vmin,430px);height:min(86vmin,430px)}}}
+#shell.surface-compat #jarvis-sphere{width:680px;height:680px;max-width:92vw;max-height:calc(100vh - 118px)}
+@media(max-width:900px){#shell.surface-compat #jarvis-sphere{width:560px;height:560px;max-width:92vw;max-height:calc(100vh - 110px)}}
+#shell.surface-compat #sphere-interface{left:0;right:0;display:flex;align-items:center;justify-content:center}
+#shell.surface-compat[data-controls="open"] #jarvis-sphere{width:440px;height:440px;max-width:88vw;max-height:42vh}
+@media(prefers-reduced-motion:reduce){#sphere-hud{opacity:.32}#jarvis-sphere{filter:saturate(.88)}}

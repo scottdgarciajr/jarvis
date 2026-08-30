@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Jarvis</title>
+  <link rel="stylesheet" href="/static/style.css?v=20260829-surface3">
+  <link rel="stylesheet" href="/static/sphere.css?v=20260829-surface3">
+  <link rel="stylesheet" href="/static/pairing.css?v=20260829-surface3">
+  <link rel="stylesheet" href="/static/modes.css?v=20260829-surface3">
+  <link rel="stylesheet" href="/static/expressions.css?v=20260829-surface3">
+</head>
+<body>
+<main id="shell" class="state-idle">
+  <div id="ambient"></div>
+
+  <section id="stage" aria-label="Jarvis status">
+    <section id="sphere-interface" aria-label="Jarvis sphere interface">
+      <canvas id="jarvis-sphere" aria-label="Animated Jarvis energy sphere"></canvas>
+      <div id="sphere-hud" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <div id="sphere-readout">
+        <div id="sphere-status">JARVIS</div>
+        <div id="sphere-message">Ready.</div>
+      </div>
+    </section>
+    <section id="face" aria-label="Jarvis, idle">
+      <div class="brow left"></div>
+      <div class="brow right"></div>
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+      <div id="mouth" class="mouth smile"><i></i></div>
+      <div id="chin-hand"><span></span><span></span><span></span></div>
+      <div id="indicator"></div>
+    </section>
+    <section id="card" aria-live="polite">
+      <div id="status">JARVIS</div>
+      <div id="message">Ready.</div>
+    </section>
+  </section>
+
+  <section id="controls" aria-label="Jarvis controls" hidden>
+    <nav id="tabs" aria-label="Control groups">
+      <button class="active" data-panel="lights-panel">Lights</button>
+      <button data-panel="ask-panel">Ask</button>
+      <button data-panel="tools-panel">Tools</button>
+    </nav>
+
+    <section id="lights-panel" class="control-panel active" aria-label="Light controls">
+      <div class="toolbar">
+        <select id="light-target" aria-label="Light target" title="Choose which paired lamps the buttons affect.">
+          <option value="">Both</option>
+          <option value="tv lights">TV lights</option>
+          <option value="loft lights">Loft lights</option>
+        </select>
+        <button class="hint" type="button" aria-label="Light target help" title="Both controls every paired lamp. TV lights targets the lamp near the TV. Loft lights targets the other saved Lotus lamp.">?</button>
+        <button id="lights-on" type="button">On</button>
+        <button id="lights-off" type="button">Off</button>
+      </div>
+
+      <label class="field">
+        <span>Color</span>
+        <input id="light-color" type="color" value="#ffffff">
+      </label>
+
+      <div id="color-swatches" class="swatches" aria-label="Preset colors"></div>
+
+      <label class="field">
+        <span>Brightness</span>
+        <output id="brightness-value">80%</output>
+        <input id="brightness" type="range" min="0" max="100" value="80">
+      </label>
+
+      <div id="effect-grid" class="effect-grid" aria-label="Light effects"></div>
+
+      <div class="toolbar">
+        <button id="stop-effect" type="button">Stop Effect</button>
+        <button id="music-sync" type="button" title="Uses this browser's microphone to push changing colors to the lamps.">Music Sync</button>
+        <button id="camera-sync" type="button">TV Mode</button>
+        <button id="camera-sync-off" type="button">TV Off</button>
+      </div>
+      <div class="toolbar tv-controls" aria-label="TV mode tuning">
+        <select id="tv-profile" aria-label="TV mode profile" title="Cinema is balanced, Vivid boosts color, Soft is gentler, Dark Room is dimmer.">
+          <option value="cinema">Cinema</option>
+          <option value="vivid">Vivid</option>
+          <option value="soft">Soft</option>
+          <option value="dark">Dark Room</option>
+        </select>
+        <button class="hint" type="button" aria-label="TV mode profile help" title="Cinema is balanced. Vivid boosts saturation and brightness. Soft is less intense. Dark Room is dimmer for night viewing.">?</button>
+        <select id="tv-target" aria-label="TV mode lights" title="Choose which lamps TV mode should animate.">
+          <option value="auto">Auto Lights</option>
+          <option value="both">Both Lights</option>
+          <option value="tv">TV Lights</option>
+        </select>
+        <button class="hint" type="button" aria-label="TV mode target help" title="Auto follows the selected light target when it is TV lights, otherwise both. Both always uses every paired light. TV only uses the TV lights.">?</button>
+        <select id="tv-speed" aria-label="TV mode transition speed" title="Instant reacts fastest, Smooth changes slowly, Fast Natural is the balanced default.">
+          <option value="fast">Fast Natural</option>
+          <option value="smooth">Smooth</option>
+          <option value="instant">Instant</option>
+        </select>
+        <button class="hint" type="button" aria-label="TV mode speed help" title="Fast Natural balances responsiveness with smoothness. Smooth is slower and calmer. Instant changes as quickly as possible.">?</button>
+      </div>
+    </section>
+
+    <section id="ask-panel" class="control-panel" aria-label="Ask Jarvis">
+      <form id="fallback">
+        <input id="request" aria-label="Ask Jarvis" placeholder="Type a request..." autocomplete="off">
+        <button>Send</button>
+      </form>
+      <div id="quick-commands" class="quick-commands" aria-label="Quick commands">
+        <button type="button" data-command="what do you remember about me">Recall Memory</button>
+        <button type="button" data-command="what light effects are available">List Effects</button>
+        <button type="button" data-command="turn on TV mode">TV Mode</button>
+      </div>
+    </section>
+
+    <section id="tools-panel" class="control-panel" aria-label="Tool controls">
+      <div class="toolbar">
+        <select id="tool-name" aria-label="Tool"></select>
+        <button id="run-tool" type="button">Run</button>
+      </div>
+      <textarea id="tool-arguments" spellcheck="false" aria-label="Tool JSON arguments">{}</textarea>
+    </section>
+
+    <section id="result-panel" aria-live="polite">
+      <div id="result-title">Outcome</div>
+      <div id="result-text">Ready.</div>
+    </section>
+  </section>
+
+  <nav id="top-actions" aria-label="Jarvis quick controls">
+    <button id="controls-toggle" aria-label="Show controls" title="Show controls">Controls</button>
+    <button id="talk" aria-label="Enable microphone" title="Enable microphone or interrupt speech">Mic</button>
+    <button id="settings-toggle" aria-label="Settings" title="Settings">Settings</button>
+    <a id="help" href="/static/help.html" aria-label="Help" title="Help">?</a>
+    <button id="mode-toggle" aria-label="Display mode" title="Change display mode">Face</button>
+  </nav>
+
+  <section id="settings" hidden>
+    <div>
+      <h1>Settings</h1>
+      <label><span>Microphone <button class="hint" type="button" aria-label="Microphone help" title="Server uses the Jarvis PC microphone and can keep listening without browser speech support. Local browser uses this device's browser speech recognition.">?</button></span><select id="mic-source"><option value="server">Server</option><option value="local">Local browser</option></select></label>
+      <label><span>Camera <button class="hint" type="button" aria-label="Camera help" title="Server uses the Jarvis PC camera and keeps TV mode running after the client closes. Local browser uses this device's camera and stops when the page closes.">?</button></span><select id="camera-source"><option value="server">Server</option><option value="local">Local browser</option></select></label>
+      <label><span>Interface <button class="hint" type="button" aria-label="Interface help" title="Use default interface selects the Jarvis Sphere. Classic Face restores the original animated face.">?</button></span><select id="interface-select"><option value="default">Use default interface</option><option value="sphere">Jarvis Sphere</option><option value="classic">Classic Face</option></select></label>
+      <section id="lamp-pairing" aria-label="Lotus lamp pairing">
+        <div class="settings-row">
+          <span>Lotus lamps</span>
+          <span>
+            <button id="repair-lamps" type="button">Reconnect</button>
+            <button id="scan-lamps" type="button">Scan</button>
+          </span>
+        </div>
+        <div id="paired-lamps" class="device-list"></div>
+        <div id="lamp-scan-results" class="device-list"></div>
+      </section>
+      <p id="settings-note">Internet Explorer should use server mode.</p>
+      <button id="settings-close">Done</button>
+    </div>
+  </section>
+
+  <section id="pairing" hidden>
+    <div>
+      <h1>Pair this browser</h1>
+      <p>On your Jarvis PC, browsers pair automatically. On another device, run <code>./jarvis token</code> on the PC and paste the result here.</p>
+      <form id="pair-form"><input id="pair-token" type="password" autocomplete="off" placeholder="Jarvis client token"><button>Pair</button></form>
+    </div>
+  </section>
+</main>
+<script src="/static/pairing.js?v=20260829-surface3"></script>
+<script src="/static/sphere.js?v=20260829-surface3"></script>
+<script src="/static/app.js?v=20260829-surface3"></script>
+</body>
+</html>

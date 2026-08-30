@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jarvis Help</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#06111f;color:#eaf5ff;font-family:"Segoe UI",Arial,sans-serif;line-height:1.5}.wrap{max-width:760px;margin:0 auto;padding:32px 22px}a{color:#9ee8ff}h1{font-size:30px;margin:0 0 16px}h2{font-size:18px;margin:28px 0 8px}.panel{border:1px solid rgba(170,220,255,.22);border-radius:8px;padding:16px;background:rgba(3,16,30,.55)}code{color:#b9e5ff}.back{display:inline-block;margin-bottom:22px;text-decoration:none}
+</style>
+</head>
+<body>
+<main class="wrap">
+<a class="back" href="/">Back to Jarvis</a>
+<h1>Jarvis Help</h1>
+<section class="panel">
+<h2>Microphone Permission On Surface</h2>
+<p>Modern Edge and Chrome only allow the microphone on a trusted secure page. If the mic permission toggle is missing or blocked, install Jarvis's local certificate first.</p>
+<p><a href="/api/cert">Download jarvis.local.crt</a></p>
+<p>Install it into Trusted Root Certification Authorities, fully close Edge, then reopen <code>https://10.0.0.242:8000</code>.</p>
+<h2>Wake Word</h2>
+<p>After microphone permission is granted, Jarvis listens for its name automatically. The mic button is only for the browser's first permission prompt or recovery after permission is denied.</p>
+<p>If this browser says it does not expose speech recognition, the browser itself is missing the required Web Speech API. Internet Explorer on Surface usually falls into this category. In Settings, set Microphone to Server and run wake word and speech-to-text on the Jarvis PC.</p>
+<h2>Server And Local Modes</h2>
+<p>Local mode uses this browser's microphone or camera and requires browser permission. Server mode uses hardware attached to the Jarvis PC and avoids browser permission problems on Internet Explorer.</p>
+<p>Camera color matching works in Server mode from the Jarvis PC camera. Local camera mode only works in newer browsers that support camera access.</p>
+<h2>Music Sync</h2>
+<p>Music sync also uses the browser microphone. Say or type <code>sync the lights to music</code>. Any normal light color or effect command will stop music sync and take control again.</p>
+</section>
+</main>
+</body>
+</html>

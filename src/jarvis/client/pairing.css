@@ -1,0 +1,5 @@
+#pairing{position:absolute;z-index:10;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(2,10,20,.86);padding:25px}
+#pairing[hidden]{display:none}
+#pairing>div{width:min(430px,100%);padding:28px;border:1px solid rgba(159,214,255,.4);border-radius:22px;background:#0a2035;box-shadow:0 0 60px rgba(72,170,255,.2)}
+#pairing h1{margin:0 0 12px;font-size:24px}#pairing p{color:#b6ccdc;line-height:1.5}#pairing code{color:#a9e1ff}
+#pair-form{display:flex;gap:8px;margin-top:20px}#pair-token{min-width:0;flex:1;border:1px solid #496d85;border-radius:12px;padding:12px;background:#06111f;color:#fff}#pair-form button{border:0;border-radius:12px;padding:0 18px;background:#368bc1;color:#fff}

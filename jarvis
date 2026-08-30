@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+# One-command launcher for macOS/Linux. It never relies on an activated venv.
+set -euo pipefail
+PROJECT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PYTHON="$PROJECT_DIR/.venv/bin/python"
+cd "$PROJECT_DIR"
+
+bootstrap() {
+  if [ ! -x "$PYTHON" ]; then
+    echo "Preparing Jarvis for the first time…"
+    python3 -m venv "$PROJECT_DIR/.venv"
+  fi
+  if ! "$PYTHON" -c 'import jarvis, bleak, cryptography, cv2' >/dev/null 2>&1; then
+    echo "Installing Jarvis…"
+    "$PYTHON" -m pip install -e .
+  fi
+  [ -f .env ] || cp .env.example .env
+  "$PYTHON" - <<'PY'
+from pathlib import Path
+import secrets
+p = Path(".env")
+text = p.read_text()
+placeholder = "JARVIS_API_TOKEN=change-this-to-a-long-random-secret"
+if placeholder in text:
+    p.write_text(text.replace(placeholder, "JARVIS_API_TOKEN=" + secrets.token_urlsafe(32)))
+    print("Created a private client token in .env.")
+PY
+}
+
+show_token() {
+  "$PYTHON" - <<'PY'
+from pathlib import Path
+for line in Path('.env').read_text().splitlines():
+    if line.startswith('JARVIS_API_TOKEN='):
+        print(line.split('=', 1)[1])
+        break
+PY
+}
+
+case "${1:-start}" in
+  start)
+    bootstrap
+    echo "Starting Jarvis…"
+    echo "Open http://127.0.0.1:8000 on this Mac. It pairs automatically."
+    echo "Surface pairing token (keep private): $(show_token)"
+    exec "$PYTHON" -m jarvis
+    ;;
+  setup) bootstrap; echo "Ready. Start Jarvis with: ./jarvis" ;;
+  token)
+    bootstrap
+    show_token
+    ;;
+  lamps)
+    bootstrap
+    if ! "$PYTHON" -c 'import lotus_lamp' >/dev/null 2>&1; then "$PYTHON" -m pip install -e '.[lotus]'; fi
+    exec "$PYTHON" -m jarvis.lotus_setup "${@:2}"
+    ;;
+  test)
+    bootstrap
+    if ! "$PYTHON" -c 'import pytest' >/dev/null 2>&1; then "$PYTHON" -m pip install -e '.[dev]'; fi
+    exec "$PYTHON" -m pytest "${@:2}"
+    ;;
+  *) echo "Usage: ./jarvis [start|setup|token|lamps|test]" >&2; exit 2 ;;
+esac
