@@ -1,4 +1,5 @@
 # Jarvis
+<img width="1898" height="930" alt="image" src="https://github.com/user-attachments/assets/0dd5973a-8651-4ca7-bbd5-f8d89596db2f" />
 
 Jarvis is a self-hosted personal voice assistant: your PC is the local brain, while an old Surface RT can be a lightweight animated voice/display satellite. It uses an Ollama-compatible local model, SQLite personal memory, a strict tool registry, and an event-driven face rather than a chatbot dashboard.
 
