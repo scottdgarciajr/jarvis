@@ -120,7 +120,7 @@ Jarvis also starts a background Lotus auto-connect loop. On launch, it keeps try
 
 ## Future feature handoff guide
 
-When you ask ChatGPT or Codex to add or adjust Jarvis features later, include the files that own the behavior you want to change. The fastest bundle for most changes is:
+If you wish to adjust Jarvis features, use the files that own the behavior you want to change. The fastest bundle for most changes is:
 
 - `README.md`: current operating notes, setup, troubleshooting, and this handoff map.
 - `pyproject.toml`: package dependencies, extras, pytest config, and the console entry point.
